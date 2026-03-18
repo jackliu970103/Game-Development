@@ -1,7 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'my_game.dart';
-
+// 程式進入點
 void main() {
   runApp(
     MaterialApp(
@@ -44,7 +44,7 @@ class HudOverlay extends StatelessWidget {
                       Border.all(color: Colors.greenAccent, width: 1.5),
                 ),
                 child: Text(
-                  '⭐ Score: $score',
+                  ' Score: $score',
                   style: const TextStyle(
                     color: Colors.greenAccent,
                     fontSize: 20,
@@ -66,7 +66,7 @@ class HudOverlay extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
-                  'WASD / 方向鍵 移動\n✅ 好食物 +10　❌ 壞食物 -10',
+                  'WASD / 方向鍵 移動\n 好食物 +10　 壞食物 -10',
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: Colors.white70,

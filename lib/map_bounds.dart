@@ -10,7 +10,7 @@ class MapBounds extends PositionComponent {
     // 背景
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = const Color(0xFF1a1a2e),
+      Paint()..color = const Color(0xFFFCF3BB),
     );
 
     // 格線

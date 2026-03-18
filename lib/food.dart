@@ -22,8 +22,6 @@ class Food extends SpriteComponent with HasGameRef<MyGame>{
 
   @override
   Future<void> onLoad() async {
-    // 好食物載入 good_food.png，壞食物載入 bad_food.png
-    // 請將圖片放在 assets/images/ 資料夾內
     final imageName =
         type == FoodType.good ? 'good_food.png' : 'bad_food.png';
     sprite = await gameRef.loadSprite(imageName);

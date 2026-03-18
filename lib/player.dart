@@ -6,8 +6,8 @@ import 'my_game.dart';
 
 class Player extends SpriteComponent
     with HasGameRef<MyGame>, CollisionCallbacks {
-  static const double speed = 200;
-  static const double playerSize = 48; // 可自行調整大小
+  static const double speed = 200; // 移動速度
+  static const double playerSize = 100; // 可自行調整大小
 
   final void Function(int scoreDelta) onEat;
   Vector2 _velocity = Vector2.zero();
@@ -22,7 +22,7 @@ class Player extends SpriteComponent
   @override
   Future<void> onLoad() async {
     // 載入玩家圖片
-    // 請將你的圖片放在 assets/images/player.png
+    // 請將你的圖片放在 assets/images/中
     sprite = await gameRef.loadSprite('player.png');
 
     add(CircleHitbox(
