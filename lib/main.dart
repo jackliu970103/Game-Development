@@ -1,19 +1,16 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'my_game.dart';
-// 程式進入點
+import 'Character.dart';
+
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black,
-        body: GameWidget<MyGame>(
-          game: MyGame(),
-          overlayBuilderMap: {
-            'hud': (context, game) => HudOverlay(game: game),
-          },
-        ),
+        body: const HomeScreen(),
       ),
     ),
   );
@@ -81,3 +78,76 @@ class HudOverlay extends StatelessWidget {
     );
   }
 }
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RawKeyboardListener(
+      focusNode: _focusNode,
+      onKey: (event) {
+        if (event is RawKeyDownEvent) {
+          if (event.logicalKey == LogicalKeyboardKey.space) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CharacterScreen()),
+            );
+          }
+
+        }
+      },
+      child: Center(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>CharacterScreen() ),
+            );
+          },
+          child: SizedBox.expand(
+
+            child: Image.asset('assets/images/Start.png',fit: BoxFit.fill,),
+
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GameWidget<MyGame>(
+        game: MyGame(),
+        overlayBuilderMap: {
+          'hud': (context, game) => HudOverlay(game: game),
+        },
+      ),
+    );
+  }
+}
+

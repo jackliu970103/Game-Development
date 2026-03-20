@@ -12,7 +12,7 @@ class MapBounds extends PositionComponent {
       Rect.fromLTWH(0, 0, size.x, size.y),
       Paint()..color = const Color(0xFFFCF3BB),
     );
-
+//Color(0xFFFCF3BB)
     // 格線
     final gridPaint = Paint()
       ..color = const Color(0xFF2a2a4a)

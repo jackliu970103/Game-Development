@@ -23,10 +23,11 @@ class Player extends SpriteComponent
   Future<void> onLoad() async {
     // 載入玩家圖片
     // 請將你的圖片放在 assets/images/中
-    sprite = await gameRef.loadSprite('player.png');
+    sprite = await gameRef.loadSprite('yellowRunning.png');
 
     add(CircleHitbox(
-      radius: playerSize / 2,
+      radius: playerSize / 4,
+      position: Vector2(50, 50),
       anchor: Anchor.center,
     ));
   }
@@ -47,13 +48,13 @@ class Player extends SpriteComponent
         keysPressed.contains(LogicalKeyboardKey.keyA)) {
       dx = -1;
       // 向左移動時水平翻轉圖片
-      if (!isFlippedHorizontally) flipHorizontally();
+      if (isFlippedHorizontally) flipHorizontally();
     }
     if (keysPressed.contains(LogicalKeyboardKey.arrowRight) ||
         keysPressed.contains(LogicalKeyboardKey.keyD)) {
       dx = 1;
       // 向右移動時恢復正常
-      if (isFlippedHorizontally) flipHorizontally();
+      if (!isFlippedHorizontally) flipHorizontally();
     }
 
     _velocity = Vector2(dx, dy);

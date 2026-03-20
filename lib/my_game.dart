@@ -24,6 +24,7 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
+
     add(MapBounds(size: Vector2(mapWidth, mapHeight)));
 
     player = Player(
@@ -45,10 +46,8 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
   }
 
   void _onEat(int scoreDelta) {
-    // 分數不低於 0
     scoreNotifier.value = (scoreNotifier.value + scoreDelta).clamp(0, 99999);
 
-    // 吃掉後補一個同類食物
     final type = scoreDelta > 0 ? FoodType.good : FoodType.bad;
     _spawnFood(type, 1);
   }

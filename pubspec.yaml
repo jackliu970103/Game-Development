@@ -63,6 +63,13 @@ flutter:
      - assets/images/player.png
      - assets/images/good_food.png
      - assets/images/bad_food.png
+     - assets/images/yellowRunning.png
+     - assets/images/blueRunning.png
+     - assets/images/Start.png
+     - assets/images/redStand.png
+     - assets/images/grayStand.png
+     - assets/images/blueStand.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

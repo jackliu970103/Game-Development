@@ -28,6 +28,7 @@ class Food extends SpriteComponent with HasGameRef<MyGame>{
 
     add(CircleHitbox(
       radius: foodSize / 2,
+      position: Vector2(foodSize / 2, foodSize / 2),
       anchor: Anchor.center,
     ));
   }
