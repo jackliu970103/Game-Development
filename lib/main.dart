@@ -131,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final String stg;
+  const GameScreen({super.key,required this.stg});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -142,7 +143,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GameWidget<MyGame>(
-        game: MyGame(),
+        game: MyGame(playername: widget.stg),
         overlayBuilderMap: {
           'hud': (context, game) => HudOverlay(game: game),
         },

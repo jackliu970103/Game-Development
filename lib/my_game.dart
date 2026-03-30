@@ -10,44 +10,72 @@ import 'food.dart';
 import 'map_bounds.dart';
 
 class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
+  final String playername;
+  MyGame({required this.playername});
   late Player player;
   final ValueNotifier<int> scoreNotifier = ValueNotifier(0);
+  final ValueNotifier<int> timeNotifier = ValueNotifier(60);
+  final ValueNotifier<bool> gameOverNotifier = ValueNotifier(false);
+
   int get score => scoreNotifier.value;
 
   static const int goodFoodCount = 5;
   static const int badFoodCount = 3;
   static const double mapWidth = 800;
   static const double mapHeight = 600;
+  static const int gameDuration = 60;
+
+  double _timeAccumulator = 0;
 
   @override
   Color backgroundColor() => const Color(0xFF1a1a2e);
 
   @override
   Future<void> onLoad() async {
-
     add(MapBounds(size: Vector2(mapWidth, mapHeight)));
 
     player = Player(
       position: Vector2(mapWidth / 2, mapHeight / 2),
       onEat: _onEat,
+      playername: playername,
     );
     add(player);
 
-    // 初始生成好食物與壞食物
     _spawnFood(FoodType.good, goodFoodCount);
     _spawnFood(FoodType.bad, badFoodCount);
 
     overlays.add('hud');
-
     camera.follow(player);
     camera.viewport = FixedResolutionViewport(
       resolution: Vector2(mapWidth, mapHeight),
     );
   }
 
-  void _onEat(int scoreDelta) {
-    scoreNotifier.value = (scoreNotifier.value + scoreDelta).clamp(0, 99999);
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (gameOverNotifier.value) return;
 
+    _timeAccumulator += dt;
+    if (_timeAccumulator >= 1.0) {
+      _timeAccumulator -= 1.0;
+      timeNotifier.value -= 1;
+      if (timeNotifier.value <= 0) {
+        timeNotifier.value = 0;
+        _endGame();
+      }
+    }
+  }
+
+  void _endGame() {
+    gameOverNotifier.value = true;
+    player.removeFromParent();
+    overlays.add('gameOver');
+  }
+
+  void _onEat(int scoreDelta) {
+    if (gameOverNotifier.value) return;
+    scoreNotifier.value = (scoreNotifier.value + scoreDelta).clamp(0, 99999);
     final type = scoreDelta > 0 ? FoodType.good : FoodType.bad;
     _spawnFood(type, 1);
   }
@@ -59,14 +87,44 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
         50 + random.nextDouble() * (mapWidth - 100),
         50 + random.nextDouble() * (mapHeight - 100),
       );
-      add(Food(position: pos, type: type));
+
+      // 每顆食物錯開落下時間，視覺更自然
+      final delay = (random.nextDouble() * 0.3 * i * 1000).toInt();
+
+      Future.delayed(Duration(milliseconds: delay), () {
+        if (!gameOverNotifier.value) {
+          add(Food(position: pos, type: type));
+        }
+      });
     }
+  }
+
+  void restartGame() {
+    scoreNotifier.value = 0;
+    timeNotifier.value = gameDuration;
+    gameOverNotifier.value = false;
+    _timeAccumulator = 0;
+
+    children.whereType<Food>().toList().forEach((f) => f.removeFromParent());
+
+    player = Player(
+      position: Vector2(mapWidth / 2, mapHeight / 2),
+      onEat: _onEat,
+      playername: playername,
+    );
+    add(player);
+    camera.follow(player);
+
+    _spawnFood(FoodType.good, goodFoodCount);
+    _spawnFood(FoodType.bad, badFoodCount);
+
+    overlays.remove('gameOver');
   }
 
   @override
   KeyEventResult onKeyEvent(
       KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    player.updateMovement(keysPressed);
+    if (!gameOverNotifier.value) player.updateMovement(keysPressed);
     return KeyEventResult.handled;
   }
 }

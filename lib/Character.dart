@@ -22,7 +22,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFCF3BB), // 深色網頁風
+      backgroundColor: const Color(0xFFFCF3BB), 
       appBar: AppBar(
         title: const Text("選擇角色"),
         centerTitle: true,
@@ -70,7 +70,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => GameScreen(),
+                                builder: (_) => GameScreen(stg: selectedCharacter.toString()),
                               ),
                             );
                           });

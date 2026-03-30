@@ -1,29 +1,47 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
 
 import 'my_game.dart';
 
 enum FoodType { good, bad }
 
-class Food extends SpriteComponent with HasGameRef<MyGame>{
-  static const double foodSize = 36; // 可自行調整大小
+class Food extends SpriteComponent with HasGameRef<MyGame> {
+  static const double foodSize = 36;
 
   final FoodType type;
+  final Vector2 _targetPosition;
+  bool _isEaten = false;
 
-  // 好食物 +10，壞食物 -10
+  static const List<String> _goodImages = [
+    'good1.png', 'good2.png', 'good3.png', 'good4.png', 'good5.png',
+  ];
+
+  static const List<String> _badImages = [
+    'bad1.png', 'bad2.png', 'bad3.png', 'bad4.png',
+    'bad5.png', 'bad6.png', 'bad7.png', 'bad8.png',
+  ];
+
   int get scoreDelta => type == FoodType.good ? 10 : -10;
+  bool get isEaten => _isEaten;
 
   Food({required Vector2 position, required this.type})
-      : super(
-          size: Vector2.all(foodSize),
-          position: position,
-          anchor: Anchor.center,
-        );
+      : _targetPosition = position.clone(),
+        super(
+        size: Vector2.all(foodSize),
+        position: Vector2(position.x, -foodSize),
+        anchor: Anchor.center,
+      );
 
   @override
   Future<void> onLoad() async {
-    final imageName =
-        type == FoodType.good ? 'good_food.png' : 'bad_food.png';
+    final random = Random();
+    final imageName = type == FoodType.good
+        ? _goodImages[random.nextInt(_goodImages.length)]
+        : _badImages[random.nextInt(_badImages.length)];
+
     sprite = await gameRef.loadSprite(imageName);
 
     add(CircleHitbox(
@@ -31,5 +49,34 @@ class Food extends SpriteComponent with HasGameRef<MyGame>{
       position: Vector2(foodSize / 2, foodSize / 2),
       anchor: Anchor.center,
     ));
+
+    add(
+      MoveToEffect(
+        _targetPosition,
+        EffectController(duration: 0.7, curve: Curves.bounceOut),
+      ),
+    );
+  }
+
+  void playEatAnimation() {
+    if (_isEaten) return;
+    _isEaten = true;
+
+    children.whereType<CircleHitbox>().forEach((h) => h.removeFromParent());
+
+    add(
+      ScaleEffect.to(
+        Vector2.all(0),
+        EffectController(duration: 0.25, curve: Curves.easeIn),
+      ),
+    );
+
+    add(
+      OpacityEffect.to(
+        0,
+        EffectController(duration: 0.25, curve: Curves.easeIn),
+        onComplete: removeFromParent,
+      ),
+    );
   }
 }

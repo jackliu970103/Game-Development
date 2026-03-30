@@ -69,6 +69,21 @@ flutter:
      - assets/images/redStand.png
      - assets/images/grayStand.png
      - assets/images/blueStand.png
+     - assets/images/redRunning.png
+     - assets/images/grayRunning.png
+     - assets/images/bad1.png
+     - assets/images/bad2.png
+     - assets/images/bad3.png
+     - assets/images/bad4.png
+     - assets/images/bad5.png
+     - assets/images/bad6.png
+     - assets/images/bad7.png
+     - assets/images/bad8.png
+     - assets/images/good1.png
+     - assets/images/good2.png
+     - assets/images/good3.png
+     - assets/images/good4.png
+     - assets/images/good5.png
 
   #   - images/a_dot_ham.jpeg
 
