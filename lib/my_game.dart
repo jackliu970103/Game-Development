@@ -12,6 +12,7 @@ import 'map_bounds.dart';
 class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
   final String playername;
   MyGame({required this.playername});
+
   late Player player;
   final ValueNotifier<int> scoreNotifier = ValueNotifier(0);
   final ValueNotifier<int> timeNotifier = ValueNotifier(60);
@@ -21,9 +22,11 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
 
   static const int goodFoodCount = 5;
   static const int badFoodCount = 3;
-  static const double mapWidth = 800;
-  static const double mapHeight = 600;
   static const int gameDuration = 60;
+
+  // 改成動態抓取，不再寫死
+  double get mapWidth => size.x;
+  double get mapHeight => size.y;
 
   double _timeAccumulator = 0;
 
@@ -32,7 +35,8 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
-    add(MapBounds(size: Vector2(mapWidth, mapHeight)));
+    // 移除 FixedResolutionViewport，改用預設 viewport（全螢幕）
+    add(MapBounds());
 
     player = Player(
       position: Vector2(mapWidth / 2, mapHeight / 2),
@@ -46,9 +50,7 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
 
     overlays.add('hud');
     camera.follow(player);
-    camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(mapWidth, mapHeight),
-    );
+    // *** 不再設定 FixedResolutionViewport ***
   }
 
   @override
@@ -88,7 +90,6 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
         50 + random.nextDouble() * (mapHeight - 100),
       );
 
-      // 每顆食物錯開落下時間，視覺更自然
       final delay = (random.nextDouble() * 0.3 * i * 1000).toInt();
 
       Future.delayed(Duration(milliseconds: delay), () {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:game/main.dart';
 
+import 'beforeGame.dart';
+
 class CharacterScreen extends StatefulWidget {
   const CharacterScreen({super.key});
 
@@ -23,12 +25,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFCF3BB), 
-      appBar: AppBar(
-        title: const Text("選擇角色"),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 900),
@@ -70,7 +67,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => GameScreen(stg: selectedCharacter.toString()),
+                                builder: (_) => ChatScreen(chose: selectedCharacter.toString()),
                               ),
                             );
                           });

@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game/uiTest.dart';
 import 'my_game.dart';
 import 'Character.dart';
 
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (event.logicalKey == LogicalKeyboardKey.space) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CharacterScreen()),
+              MaterialPageRoute(builder: (context) => const UItestScreen()),
             );
           }
 
@@ -116,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>CharacterScreen() ),
+              MaterialPageRoute(builder: (context) =>UItestScreen() ),
             );
           },
           child: SizedBox.expand(

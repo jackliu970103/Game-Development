@@ -81,8 +81,15 @@ class Player extends SpriteComponent
     super.update(dt);
     position.add(_velocity * dt);
 
-    position.x = position.x.clamp(playerSize / 2, MyGame.mapWidth - playerSize / 2);
-    position.y = position.y.clamp(playerSize / 2, MyGame.mapHeight - playerSize / 2);
+    // ✅ 改成透過 gameRef 動態取得地圖大小
+    position.x = position.x.clamp(
+      playerSize / 2,
+      gameRef.mapWidth - playerSize / 2,
+    );
+    position.y = position.y.clamp(
+      playerSize / 2,
+      gameRef.mapHeight - playerSize / 2,
+    );
   }
 
   @override
@@ -92,7 +99,7 @@ class Player extends SpriteComponent
 
     if (other is Food && !other.isEaten) {
       other.playEatAnimation();
-      onEat(other.scoreDelta);  // 更新分數
+      onEat(other.scoreDelta);
     }
   }
 }

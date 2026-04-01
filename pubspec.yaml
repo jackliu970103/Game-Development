@@ -60,30 +60,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/images/player.png
-     - assets/images/good_food.png
-     - assets/images/bad_food.png
-     - assets/images/yellowRunning.png
-     - assets/images/blueRunning.png
-     - assets/images/Start.png
-     - assets/images/redStand.png
-     - assets/images/grayStand.png
-     - assets/images/blueStand.png
-     - assets/images/redRunning.png
-     - assets/images/grayRunning.png
-     - assets/images/bad1.png
-     - assets/images/bad2.png
-     - assets/images/bad3.png
-     - assets/images/bad4.png
-     - assets/images/bad5.png
-     - assets/images/bad6.png
-     - assets/images/bad7.png
-     - assets/images/bad8.png
-     - assets/images/good1.png
-     - assets/images/good2.png
-     - assets/images/good3.png
-     - assets/images/good4.png
-     - assets/images/good5.png
+     - assets/images/
 
   #   - images/a_dot_ham.jpeg
 

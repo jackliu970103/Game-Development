@@ -9,7 +9,9 @@ import 'my_game.dart';
 enum FoodType { good, bad }
 
 class Food extends SpriteComponent with HasGameRef<MyGame> {
-  static const double foodSize = 36;
+
+  static const double goodFoodSize = 36;
+  static const double badFoodSize = 100;
 
   final FoodType type;
   final Vector2 _targetPosition;
@@ -27,11 +29,14 @@ class Food extends SpriteComponent with HasGameRef<MyGame> {
   int get scoreDelta => type == FoodType.good ? 10 : -10;
   bool get isEaten => _isEaten;
 
+  static double _sizeForType(FoodType type) =>
+      type == FoodType.good ? goodFoodSize : badFoodSize;
+
   Food({required Vector2 position, required this.type})
       : _targetPosition = position.clone(),
         super(
-        size: Vector2.all(foodSize),
-        position: Vector2(position.x, -foodSize),
+        size: Vector2.all(_sizeForType(type)),
+        position: Vector2(position.x, -_sizeForType(type)),
         anchor: Anchor.center,
       );
 
@@ -44,9 +49,11 @@ class Food extends SpriteComponent with HasGameRef<MyGame> {
 
     sprite = await gameRef.loadSprite(imageName);
 
+    final currentSize = _sizeForType(type);
+
     add(CircleHitbox(
-      radius: foodSize / 2,
-      position: Vector2(foodSize / 2, foodSize / 2),
+      radius: currentSize / 2,
+      position: Vector2(currentSize / 2, currentSize / 2),
       anchor: Anchor.center,
     ));
 
