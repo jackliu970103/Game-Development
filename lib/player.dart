@@ -8,7 +8,7 @@ class Player extends SpriteComponent
     with HasGameRef<MyGame>, CollisionCallbacks {
   final String playername;
   static const double speed = 200;
-  static const double playerSize = 100;
+  static const double playerSize = 200;
 
   final void Function(int scoreDelta) onEat;
   Vector2 _velocity = Vector2.zero();
@@ -41,7 +41,7 @@ class Player extends SpriteComponent
 
     add(CircleHitbox(
       radius: playerSize / 4,
-      position: Vector2(50, 50),
+      position: Vector2(playerSize / 2, playerSize / 2),
       anchor: Anchor.center,
     ));
   }

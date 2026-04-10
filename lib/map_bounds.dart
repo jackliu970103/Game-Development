@@ -29,9 +29,9 @@ class MapBounds extends PositionComponent with HasGameRef {
   void render(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = const Color(0xFFFCF3BB),
+      Paint()..color = const Color(0xFF2a2a4a),
     );
-
+    //0xFFFCF3BB
     final gridPaint = Paint()
       ..color = const Color(0xFF2a2a4a)
       ..strokeWidth = 1;

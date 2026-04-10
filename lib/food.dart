@@ -10,8 +10,8 @@ enum FoodType { good, bad }
 
 class Food extends SpriteComponent with HasGameRef<MyGame> {
 
-  static const double goodFoodSize = 36;
-  static const double badFoodSize = 100;
+  static const double goodFoodSize = 75;
+  static const double badFoodSize = 75;
 
   final FoodType type;
   final Vector2 _targetPosition;
