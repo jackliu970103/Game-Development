@@ -35,8 +35,6 @@ class MyGame extends FlameGame with KeyboardEvents, HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
-    debugMode= true;
-    // 移除 FixedResolutionViewport，改用預設 viewport（全螢幕）
     add(MapBounds());
 
     player = Player(

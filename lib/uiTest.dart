@@ -22,24 +22,24 @@ class _UItestScreenState extends State<UItestScreen>
   bool _hasStarted = false; // 是否已按過第一次
 
   final List<String> _girlImages = [
-    'assets/images/orGirl4.png',
-    'assets/images/orGirl3.png',
-    'assets/images/orGirl4.png',
-    'assets/images/orGirl1.png',
-    'assets/images/orGirl1.png',
-    'assets/images/orGirl3.png',
-    'assets/images/orGirl1.png',
+    'assets/images/initImages/orGirl4.png',
+    'assets/images/initImages/orGirl3.png',
+    'assets/images/initImages/orGirl4.png',
+    'assets/images/initImages/orGirl1.png',
+    'assets/images/initImages/orGirl1.png',
+    'assets/images/initImages/orGirl3.png',
+    'assets/images/initImages/orGirl1.png',
   ];
   int _girlIndex = 0;
 
   final List<String> _spaceImages = [
-    'assets/images/space1.png',
-    'assets/images/space2.png',
-    'assets/images/space3.png',
-    'assets/images/space4.png',
-    'assets/images/space5.png',
-    'assets/images/space6.png',
-    'assets/images/space7.png',
+    'assets/images/initImages/space1.png',
+    'assets/images/initImages/space2.png',
+    'assets/images/initImages/space3.png',
+    'assets/images/initImages/space4.png',
+    'assets/images/initImages/space5.png',
+    'assets/images/initImages/space6.png',
+    'assets/images/initImages/space7.png',
   ];
   int _spaceIndex = 0;
 
@@ -142,7 +142,7 @@ class _UItestScreenState extends State<UItestScreen>
             children: [
               // 1. 背景
               Image.asset(
-                'assets/images/backgroundOr.png',
+                'assets/images/background/backgroundOr.png',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
@@ -166,7 +166,7 @@ class _UItestScreenState extends State<UItestScreen>
 
               // 3. 聊天框容器
               Image.asset(
-                'assets/images/chatContainer.png',
+                'assets/images/chatbox/chatContainer.png',
                 fit: BoxFit.contain,
                 width: double.infinity,
               ),

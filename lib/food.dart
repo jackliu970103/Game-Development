@@ -18,12 +18,12 @@ class Food extends SpriteComponent with HasGameRef<MyGame> {
   bool _isEaten = false;
 
   static const List<String> _goodImages = [
-    'good1.png', 'good2.png', 'good3.png', 'good4.png', 'good5.png',
+    'food/good1.png', 'food/good2.png', 'food/good3.png', 'food/good4.png', 'food/good5.png',
   ];
 
   static const List<String> _badImages = [
-    'bad1.png', 'bad2.png', 'bad3.png', 'bad4.png',
-    'bad5.png', 'bad6.png', 'bad7.png', 'bad8.png',
+    'food/bad1.png', 'food/bad2.png', 'food/bad3.png', 'food/bad4.png',
+    'food/bad5.png', 'food/bad6.png', 'food/bad7.png', 'food/bad8.png',
   ];
 
   int get scoreDelta => type == FoodType.good ? 10 : -10;
